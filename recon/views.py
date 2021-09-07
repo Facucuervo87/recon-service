@@ -10,8 +10,8 @@ from recon.utils import utils
 # Create your views here.
 
 mongo = MongoClient()
-username = "fafernandez"
-projectname = "bancogalicia"
+username = "username"
+projectname = "projectname"
 
 # Making Connection
 myclient = MongoClient("mongodb://mongodb:27017/") 
