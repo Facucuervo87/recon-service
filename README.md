@@ -10,7 +10,7 @@ change the username and the projectname on ```.env``` file to take the right db 
 
 once mongo and docker was running, we could run the recon-securityTrails.py as following:
 
-```python3 recon-securityTrails.py <Domain> <API-SecurityTrails> <projectname> <username>```
+```python3 recon-securityTrails.py -d <Domain> -A <API-SecurityTrails> -p <projectname> -u <username>```
 
 
 once the recon finish, you could see the results on ```http://localhost:8000/subdomains``` and downlad as csv file.
