@@ -17,28 +17,32 @@
   </div>
   <form method="POST" class="post-form">{% csrf_token %}
       <div class="w3-container">
-          <button class="w3-btn w3-theme" type="submit">Download csv file</button>
+          <button class="w3-button" type="submit" style="background-color:SlateBlue; color:white">Download csv file</button>
       </div>
   </form>
 <div class="w3-responsive w3-card-4">
-<table class="w3-table w3-striped w3-bordered">
+ <table class="w3-table w3-striped w3-bordered">
 <thead>
 <tr class="w3-theme">
-        <th>Domain</th>
-        <th>Subdomain</th>
-        <th>IP</th>
-        <th>ASN</th>
-        <th>ISP</th>
-        <th>Organization</th>
-        <th>Country</th>
-        <th>Region</th>
-        <th>City</th>
-        <th>Latitude</th>
-        <th>Longuitude</th>
-        <th>TimeZone</th>
-        <th>User</th>
-        <th>date_found</th>
-        <th>last_seen</th>
+        <th style="background-color:SlateBlue;">Domain</th>
+        <th style="background-color:SlateBlue;">Subdomain</th>
+        <th style="background-color:SlateBlue;">IP</th>
+        <th style="background-color:SlateBlue;">ASN</th>
+        <th style="background-color:SlateBlue;">ISP</th>
+        <th style="background-color:SlateBlue;">Organization</th>
+        <th style="background-color:SlateBlue;">Country</th>
+        <th style="background-color:SlateBlue;">Country_Code</th>
+        <th style="background-color:SlateBlue;">Region</th>
+        <th style="background-color:SlateBlue;">Region_Code</th>
+        <th style="background-color:SlateBlue;">City</th>
+        <th style="background-color:SlateBlue;">ZIP_Code</th>
+        <th style="background-color:SlateBlue;">Latitude</th>
+        <th style="background-color:SlateBlue;">Longuitude</th>
+        <th style="background-color:SlateBlue;">TimeZone</th>
+        <th style="background-color:SlateBlue;">Project_Name</th>
+        <th style="background-color:SlateBlue;">User</th>
+        <th style="background-color:SlateBlue;">date_found</th>
+        <th style="background-color:SlateBlue;">last_seen</th>
 </tr>
 </thead>
 <tbody>
@@ -52,11 +56,15 @@
                 <td>{{ resource.ISP }}</td>
                 <td>{{ resource.Organization }}</td>
                 <td>{{ resource.Country }}</td>
+                <td>{{ resource.Country_Code }}</td>
                 <td>{{ resource.Region }}</td>
+                <td>{{ resource.Region_Code }}</td>
                 <td>{{ resource.City }}</td>
+                <td>{{ resource.ZIP_Code }}</td>
                 <td>{{ resource.Latitude }}</td>
                 <td>{{ resource.Longuitude }}</td>
                 <td>{{ resource.TimeZone }}</td>
+                <td>{{ resource.Project_Name }}</td>
                 <td>{{ resource.User}}</td>
                 <td>{{ resource.date_found }}</td>
                 <td>{{ resource.last_seen }}</td>

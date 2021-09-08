@@ -6,16 +6,37 @@ import socket
 import time
 from pymongo import MongoClient
 from datetime import datetime
+import argparse
 
-# Then we set the target and api key from cli
-target = sys.argv[1]
-api_key = sys.argv[2]
-projectname = sys.argv[3]
-username = sys.argv[4]
+print("   __    ___  __  __       ____  ____   ___  _____  _  _ ")
+print("  /__\  / __)(  \/  ) ___ (  _ \( ___) / __)(  _  )( \( )")
+print(" /(__)\ \__ \ )    ( (___) )   / )__) ( (__  )(_)(  )  ( ")
+print("(__)(__)(___/(_/\/\_)     (_)\_)(____) \___)(_____)(_)\_)")
+print("                                                         ")
+print("--------------Subdomain Reconnaissance Tool--------------")
+print("                                                         ")
+print("                                                         ")
+
+
+
+parser = argparse.ArgumentParser(description='Recon Security Trails to MongoDB')
+parser.add_argument('-d', '--domain', help='Domain to scan')
+parser.add_argument('-A', '--api', help='Security Trails API-KEY')
+parser.add_argument('-p', '--project', help='The name of the project, this name will be the collection name on MongoDB')
+parser.add_argument('-u', '--user', help='The username to make a DB on mongo and save your recon data')
+parser.add_argument('-m', '--mongodb', help='The MongoDB connection string. Example: mongodb://127.0.0.1:27017/')
+
+args = parser.parse_args()
+
+target = args.domain
+api_key = args.api
+projectname = args.project
+username = args.user
+mongodb = args.mongodb
 
 ## For Mongo DB
 # Making Connection
-myclient = MongoClient("mongodb://192.168.88.131:27017/") 
+myclient = MongoClient(mongodb) 
    
 # database 
 db = myclient[username]
@@ -158,15 +179,15 @@ for sub in subdomains:
             'ISP': isp, 
             'Organization': org, 
             'Country': country, 
-            'Country Code': country_code, 
+            'Country_Code': country_code, 
             'Region': region_name, 
-            'Region Code': region, 
+            'Region_Code': region, 
             'City': city, 
-            'ZIP Code': zip_code, 
+            'ZIP_Code': zip_code, 
             'Latitude': lat, 
             'Longuitude': lon, 
             'TimeZone': timezone, 
-            'Project Name': projectname, 
+            'Project_Name': projectname, 
             'User': username,
             'date_found': timestamp,
             'last_seen': timestamp
@@ -175,14 +196,15 @@ for sub in subdomains:
     exist = Collection.find_one({'Target': host_data['Target'], 'Subdomain': host_data['Subdomain']})
     if not exist:
         Collection.insert_one(host_data)
-        print(subdomain)
+        print(f"Subdomain found: {subdomain}")
     else:
         Collection.update_one({'_id': exist.get('_id')},
          {'$set': 
             {
             'last_seen': timestamp
             }})
-        print("Updating subdomain last seen date")
+        print(f"Updating subdomain {subdomain} last seen date: {timestamp}")
 
    
-print(f"Total subdomains found against {target}: {total_subdomains}")    
+print(f"Total subdomains found against {target}: {total_subdomains}")
+print(f"Results added to Mongodb {mongodb}, DB Name: {username}, and Collection {projectname}")
