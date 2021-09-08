@@ -25,5 +25,5 @@ def get_resources_csv_file(resources):
         })
     df = pd.DataFrame(resources_for_csv)
 
-    df.to_csv('test.csv',  index=False, encoding='utf-8')
-    return FileResponse(open('test.csv', 'rb'))
+    df.to_csv('recon.csv',  index=False, encoding='utf-8')
+    return FileResponse(open('recon.csv', 'rb'))

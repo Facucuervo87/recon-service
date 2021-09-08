@@ -6,6 +6,8 @@ services:
     image: django
     container_name: recon_web
     command: sh -c "pip3 install -r requirements.txt && python3 manage.py runserver 0.0.0.0:8000"
+    environment:
+      - .env
     volumes:
       - ./:/recon
     ports:

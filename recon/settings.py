@@ -11,21 +11,27 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import os
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+token = os.environ.get("api-token")
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pr!7tc8r(hy%2pj1e4v)5_=izo9u7eg0+s%g7kop1x2b4fjlnp'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,8 +80,9 @@ WSGI_APPLICATION = 'recon.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 import mongoengine
+db=os.environ['username']
 
-mongoengine.connect(db='fafernandez', host='mongodb:27017')
+mongoengine.connect(db, host='mongodb:27017')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

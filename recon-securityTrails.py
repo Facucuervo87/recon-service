@@ -1,11 +1,9 @@
 from re import split
 import sys
-from dns.rdatatype import NULL
 import requests
 import json
 import socket
 import time
-from aslookup import get_as_data
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -17,7 +15,7 @@ username = sys.argv[4]
 
 ## For Mongo DB
 # Making Connection
-myclient = MongoClient("mongodb://localhost:27017/") 
+myclient = MongoClient("mongodb://192.168.88.131:27017/") 
    
 # database 
 db = myclient[username]
@@ -58,7 +56,7 @@ except:
 
 for sub in subdomains:
     subdomain = (sub + "." + target) 
-    time.sleep(0.1)
+    time.sleep(0.01)
     try:
         IP_addres = socket.gethostbyname(subdomain)
     except: 
@@ -67,27 +65,27 @@ for sub in subdomains:
     
     for ip in subdomain:
         ip = IP_addres
+        time.sleep(2)
+    
         additional_information = requests.get('http://ip-api.com/json/' + ip, verify=False)
-        
+
         try:
             json_adinfo = json.loads(additional_information.text)
         except:
-            json_adinfo = NULL
             pass
-
-        if json_adinfo != NULL:
+        if json_adinfo != "NULL":
             try:
                 country = json_adinfo['country']
             except:
                 country = "Null"
                 pass
-            
+        
             try:
                 country_code = json_adinfo['countryCode']
             except:
                 country_code = "Null"
                 pass
-            
+          
             try:
                 region = json_adinfo['region']
             except:
@@ -135,7 +133,7 @@ for sub in subdomains:
             except:
                 isp = "Null"
                 pass
-            
+         
             try:
                 org = json_adinfo['org']
             except:
@@ -177,7 +175,7 @@ for sub in subdomains:
     exist = Collection.find_one({'Target': host_data['Target'], 'Subdomain': host_data['Subdomain']})
     if not exist:
         Collection.insert_one(host_data)
-        print("Adding subdomain: {} to Mongo db ".format, subdomain )
+        print(subdomain)
     else:
         Collection.update_one({'_id': exist.get('_id')},
          {'$set': 

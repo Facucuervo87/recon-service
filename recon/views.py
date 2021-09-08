@@ -6,12 +6,16 @@ from django.views.decorators.http import require_POST
 from pymongo import MongoClient
 from pymongo.database import Database
 from recon.utils import utils
+from dotenv import load_dotenv
 
-# Create your views here.
+load_dotenv()
+
+import os
 
 mongo = MongoClient()
-username = "username"
-projectname = "projectname"
+username = os.environ.get("username")
+projectname = os.environ.get("projectname")
+
 
 # Making Connection
 myclient = MongoClient("mongodb://mongodb:27017/") 
