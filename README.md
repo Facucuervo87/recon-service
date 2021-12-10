@@ -4,7 +4,7 @@ This tool is to take subdomains from the security trails api key
 
 To start the context of mongo db and django web server:
 
-change the username and the projectname on ```.env``` file to take the right db and collection, then run docker-compose
+change the username and the projectname on ```/recon/.env``` file to take the right db and collection, then run docker-compose
 
 ```sudo docker-compose -f recon.yml up```
 
